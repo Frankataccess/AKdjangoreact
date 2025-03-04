@@ -1,0 +1,1 @@
+https://dev.to/koladev/django-rest-authentication-cmh
