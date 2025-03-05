@@ -1,1 +1,6 @@
 https://dev.to/koladev/django-rest-authentication-cmh
+
+Used chat gpt to fix errors in backend code 
+used vite react for frontend 
+added tailwind css
+remove tsx specific stuff like variable types 
