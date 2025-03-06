@@ -6,6 +6,8 @@ import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useHistory } from "react-router";
+import authSlice from "../store/slices/auth";
+
 
 function Login() {
   const [message, setMessage] = useState("");
@@ -14,7 +16,22 @@ function Login() {
   const history = useHistory();
 
   const handleLogin = (email, password) => {
-    //
+    setLoading(true);
+    axios
+      .post(`${process.env.REACT_APP_API_URL}/auth/login/`, { email, password })
+      .then((res) => {
+        setAuthTokens({
+          token: res.data.access,
+          refreshToken: res.data.refresh,
+        });
+        setAccount(res.data.user);
+        setLoading(false);
+        history.push("/");
+      })
+      .catch((err) => {
+        setLoading(false);
+        setMessage(err.response.data.detail.toString());
+      });
   };
 
   const formik = useFormik({
@@ -32,6 +49,8 @@ function Login() {
     }),
   });
 
+
+  
   return (
     <div className="h-screen flex bg-gray-bg1">
       <div className="w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
